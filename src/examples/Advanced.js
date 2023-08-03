@@ -3,24 +3,38 @@ import TinderCard from 'react-tinder-card'
 
 const db = [
   {
-    name: 'Richard Hendricks',
-    url: './img/richard.jpg'
+    name: 'Dough Zone',
+    url: `${process.env.PUBLIC_URL}/img/doughzone.jpeg`,
+    rating: 4.1,
+    price: '$$'
+  },
+  // {
+  //   name: 'Richard Hendricks',
+  //   url: './img/richard.jpg'
+  // },
+  {
+    name: 'Due Cucina',
+    url: `${process.env.PUBLIC_URL}/img/duecucina.jpeg`,
+    rating: 4.3,
+    price: '$$'
   },
   {
-    name: 'Erlich Bachman',
-    url: './img/erlich.jpg'
+    name: 'Crawfish King',
+    url: `${process.env.PUBLIC_URL}/img/crawfishking.jpeg`,
+    rating: 3.5,
+    price: '$$'
   },
   {
-    name: 'Monica Hall',
-    url: './img/monica.jpg'
+    name: 'Chengdu Memory',
+    url: `${process.env.PUBLIC_URL}/img/chengdumemory.png`,
+    rating: 4.3,
+    price: '$$$'
   },
   {
-    name: 'Jared Dunn',
-    url: './img/jared.jpg'
-  },
-  {
-    name: 'Dinesh Chugtai',
-    url: './img/dinesh.jpg'
+    name: 'Jacksons Catfish Corner',
+    url: `${process.env.PUBLIC_URL}/img/catfishcorner.jpeg`,
+    rating: 4.5,
+    price: '$$'
   }
 ]
 
@@ -86,7 +100,7 @@ function Advanced () {
         href='https://fonts.googleapis.com/css?family=Alatsi&display=swap'
         rel='stylesheet'
       />
-      <h1>React Tinder Card</h1>
+      <h1>TasteBuds</h1>
       <div className='cardContainer'>
         {db.map((character, index) => (
           <TinderCard
@@ -106,9 +120,9 @@ function Advanced () {
         ))}
       </div>
       <div className='buttons'>
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Swipe left!</button>
+        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Hail No!</button>
         <button style={{ backgroundColor: !canGoBack && '#c3c4d3' }} onClick={() => goBack()}>Undo swipe!</button>
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Swipe right!</button>
+        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Yum!</button>
       </div>
       {lastDirection ? (
         <h2 key={lastDirection} className='infoText'>

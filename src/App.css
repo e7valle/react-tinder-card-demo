@@ -5,8 +5,18 @@
   width: 100vw;
   min-height: 100vh;
   overflow: hidden;
-  /* background: linear-gradient(#fff, #999); */
-  background: linear-gradient(#e66465, #9198e5);
+  /* background: linear-gradient(#fff, #999); */ /* this line was commented out already */
+  /* background: linear-gradient(#e66465, #9198e5); */
+
+  background: linear-gradient(0deg,#8e154d,#f9f6b0);
+  background-size: 120% 120%;
+  animation: gradient-animation 16s ease infinite;
+
+  /* This is what I tried and it didnt work */
+  /* background-image: url('/img/background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; */
 }
 
 * {
@@ -41,8 +51,8 @@
 
 h1 {
   font-family: 'Damion', cursive;
-  color: #fff;
-  text-shadow: 0px 0px 60px 0px rgba(0,0,0,0.30);
+  color: #650b35;
+  text-shadow: 0px 0px 60px 0px rgba(228, 172, 206, 0.904);
 }
 
 h2 {
@@ -76,15 +86,16 @@ h2 {
   height: 100%;
 }
 
-.swipe:last-of-type {
+/* This wasnt even being used */
+/* .swipe:last-of-type {
 
-}
+} */
 
 .card h3 {
   position: absolute;
   bottom: 0;
   margin: 10px;
-  color: #fff;
+  color: #000000;
 }
 
 .infoText {
@@ -115,7 +126,8 @@ h2 {
   border: none;
   color: #fff;
   font-size: 18px;
-  background-color: #9198e5;
+  /* background-color: #9198e5; */
+  background-color: #8e154d;
   transition: 200ms;
   margin: 10px;
   font-weight: bolder;
