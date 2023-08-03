@@ -120,6 +120,8 @@ function Advanced () {
               className='card'
             >
               <h3>{character.name}</h3>
+              <p>Rating: {character.rating}</p>
+              <p>Price: {character.price}</p>
             </div>
           </TinderCard>
         ))}
