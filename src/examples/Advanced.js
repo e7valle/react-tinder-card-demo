@@ -44,6 +44,7 @@ function Advanced () {
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex)
 
+  // create an array of references for child components
   const childRefs = useMemo(
     () =>
       Array(db.length)
@@ -57,10 +58,12 @@ function Advanced () {
     currentIndexRef.current = val
   }
 
+  // these two const' calculate booleans to check if swiping  and going back are possible
   const canGoBack = currentIndex < db.length - 1
 
   const canSwipe = currentIndex >= 0
 
+// this func handles swiping of cards
   // set last direction and decrease current index
   const swiped = (direction, nameToDelete, index) => {
     setLastDirection(direction)
@@ -76,12 +79,14 @@ function Advanced () {
     // during latest swipes. Only the last outOfFrame event should be considered valid
   }
 
+  // func to trigger the swipe action on a card
   const swipe = async (dir) => {
     if (canSwipe && currentIndex < db.length) {
       await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
     }
   }
 
+  // funct to go back to the previous card
   // increase current index and show card
   const goBack = async () => {
     if (!canGoBack) return
