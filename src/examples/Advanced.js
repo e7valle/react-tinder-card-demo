@@ -88,12 +88,12 @@ function Advanced () {
 
   // funct to go back to the previous card
   // increase current index and show card
-  const goBack = async () => {
-    if (!canGoBack) return
-    const newIndex = currentIndex + 1
-    updateCurrentIndex(newIndex)
-    await childRefs[newIndex].current.restoreCard()
-  }
+  // const goBack = async () => {
+  //   if (!canGoBack) return
+  //   const newIndex = currentIndex + 1
+  //   updateCurrentIndex(newIndex)
+  //   await childRefs[newIndex].current.restoreCard()
+  // }
 
   return (
     <div>
@@ -132,8 +132,8 @@ function Advanced () {
       </div>
       <div className='buttons'>
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Hail No!</button>
-        <button style={{ backgroundColor: !canGoBack && '#c3c4d3' }} onClick={() => goBack()}>Undo swipe!</button>
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Yum!</button>
+        {/* <button style={{ backgroundColor: !canGoBack && '#c3c4d3' }} onClick={() => goBack()}>Undo swipe!</button> */}
+        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Hail Yes!</button>
       </div>
       {lastDirection ? (
         <h2 key={lastDirection} className='infoText'>
@@ -141,7 +141,7 @@ function Advanced () {
         </h2>
       ) : (
         <h2 className='infoText'>
-          Swipe a card or press a button to get Restore Card button visible!
+          Swipe or click and decide together! 
         </h2>
       )}
     </div>
