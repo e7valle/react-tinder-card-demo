@@ -119,9 +119,13 @@ function Advanced () {
               style={{ backgroundImage: 'url(' + character.url + ')' }}
               className='card'
             >
-              <h3>{character.name}</h3>
-              <p>Rating: {character.rating}</p>
-              <p>Price: {character.price}</p>
+              <div className='restContent'>
+                <div className='transparentBlock'>
+                  <h3>{character.name}</h3>
+                  <p>Rating: {character.rating}</p>
+                  <p>Price: {character.price}</p>
+                </div>
+              </div>
             </div>
           </TinderCard>
         ))}
