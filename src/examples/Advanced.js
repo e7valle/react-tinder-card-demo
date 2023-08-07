@@ -1,5 +1,32 @@
 import React, { useState, useMemo, useRef } from 'react'
 import TinderCard from 'react-tinder-card'
+// import axios from 'axios'
+require('dotenv').config();
+
+// const dotenv = require('dotenv');
+// dotenv.config();
+// var express=require('express');
+
+
+const axios = require('axios');
+
+const options = {
+    method: 'GET',
+    url: 'https://api.yelp.com/v3/businesses/search?location=Seattle&term=restaurants&radius=8000&categories=&price=4&sort_by=best_match&limit=20',
+    headers: {
+        accept: 'application/json',
+        Authorization: process.env.REACT_APP_API_KEY
+    }
+};
+
+axios
+    .request(options)
+    .then(function (response) {
+        console.log(response.data);
+    })
+    .catch(function (error) {
+        console.error(error);
+    });
 
 const db = [
   {
@@ -59,7 +86,7 @@ function Advanced () {
   }
 
   // these two const' calculate booleans to check if swiping  and going back are possible
-  const canGoBack = currentIndex < db.length - 1
+  // const canGoBack = currentIndex < db.length - 1
 
   const canSwipe = currentIndex >= 0
 

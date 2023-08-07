@@ -1,0 +1,17 @@
+/* YelpSearch.css */
+.my-4 {
+    margin: 2rem 0;
+}
+
+.mt-4 {
+    margin-top: 2rem;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
