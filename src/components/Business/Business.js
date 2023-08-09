@@ -1,5 +1,7 @@
 import React from "react";
 import "./Business.css";
+// import TinderCard from 'react-tinder-card'
+import Advanced from "../../examples/Advanced";
 
 class Business extends React.Component {
 render() {

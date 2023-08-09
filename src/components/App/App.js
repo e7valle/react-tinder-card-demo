@@ -3,6 +3,9 @@ import "./App.css";
 import BusinessList from "../BusinessList/BusinessList";
 import SearchBar from "../SearchBar/SearchBar";
 import Yelp from "../../util/yelp";
+
+
+
 // Anaananananananana
 class App extends React.Component {
 constructor(props) {
@@ -13,8 +16,8 @@ constructor(props) {
 
     this.searchYelp = this.searchYelp.bind(this);
 }
-searchYelp(term, location, sortBy) {
-    Yelp.search(term, location, sortBy).then((businesses) => {
+searchYelp(term, location, sortBy, price) {
+    Yelp.search(term, location, sortBy, price).then((businesses) => {
     this.setState({ businesses: businesses });
     });
 }

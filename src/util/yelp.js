@@ -1,10 +1,9 @@
-const apiKey =
-  "7r4Z8PnSxIkwyun5Gb3tJ4PqbWf4wCCtjjnITzoAD-qMNqIDl2WsoSBoxbRP4IAMSj7FmEmGgXo8DYklIKkBNDim9g3NrgFKaqb7qhrAvA0Cpw9zYBJDnuEhGotrX3Yx"; // Insert API key here.
+const apiKey = process.env.REACT_APP_API_KEY;
 
 const Yelp = {
-    search(term, location, sortBy) {
+    search(term, location, sortBy, price) {
         return fetch(
-            `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}&limit=5`,
+            `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&price=${price}&location=${location}&sort_by=${sortBy}&limit=5`,
             {
             headers: {
                 Authorization: `Bearer ${apiKey}`,
