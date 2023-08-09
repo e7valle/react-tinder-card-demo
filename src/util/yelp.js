@@ -1,7 +1,7 @@
 const apiKey = process.env.REACT_APP_API_KEY;
 
 const Yelp = {
-    search(term, location, sortBy, radius) {
+    search(term, location, sortBy, radius, price) {
         return fetch(
             `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&radius=${radius}&price=${price}&location=${location}&sort_by=${sortBy}&limit=5`,
             {

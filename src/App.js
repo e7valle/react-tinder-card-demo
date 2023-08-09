@@ -5,7 +5,7 @@ import Advanced from '../src/examples/Advanced'; // Make sure to provide the cor
 import './App.css';
 import Yelp from '../src/util/yelp'
 import { Link } from 'react-router-dom';
-import BusinessList from '../src/components/BusinessList';
+import BusinessList from '../src/components/BusinessList/BusinessList';
 
 class App extends React.Component {
   constructor(props) {
