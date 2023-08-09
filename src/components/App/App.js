@@ -16,8 +16,8 @@ constructor(props) {
 
     this.searchYelp = this.searchYelp.bind(this);
 }
-searchYelp(term, location, sortBy, price) {
-    Yelp.search(term, location, sortBy, price).then((businesses) => {
+searchYelp(term, location, sortBy, price, radius) {
+    Yelp.search(term, location, sortBy, price, radius).then((businesses) => {
     this.setState({ businesses: businesses });
     });
 }

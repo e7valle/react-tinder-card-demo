@@ -9,7 +9,8 @@ this.state = {
     term: "",
     location: "",
     sortBy: "best_match",
-    price: ""
+    price: "",
+    radius: ""
 };
 
 this.handleTermChange = this.handleTermChange.bind(this);
@@ -27,15 +28,20 @@ this.sortByOptions = {
 
 // for price list
 this.priceOptions = {
-    // "Best Match": "best_match",
-    // "Highest Rated": "rating",
-    // "Most Reviewed": "review_count",
     "$": "1",
     "$$": "2",
     "$$$": "3",
     "$$$$": "4"
 };
+
+this.radiusOptions = {
+    "5 miles": "8047",
+    "10 miles": "16093",
+    "15 miles": "24140",
+    "20 miles": "32187"
 }
+}
+
 
 getSortByClass(sortByOption) {
 if (this.state.sortBy === sortByOption) {
@@ -50,7 +56,14 @@ getPriceClass(priceOption) {
         return "active";
     }
     return "";
+}
+
+getRadiusClass(radiusOption) {
+    if (this.state.radius === radiusOption) {
+        return "active";
     }
+    return "";
+}
 
 handleSortByChange(sortByOption) {
 this.setState({ sortBy: sortByOption });
@@ -65,8 +78,12 @@ this.setState({ location: event.target.value });
 }
 // for a list price
 handlePriceChange(priceOption) {
-    this.setState({ price: priceOption});
+    this.setState({ price: priceOption });
     }
+
+handleRadiusChange(radiusOption) {
+    this.setState({ radius: radiusOption });
+}
 
 // for a drop down price
 // handlePriceChange(event) {
@@ -80,7 +97,8 @@ this.props.searchYelp(
     this.state.term,
     this.state.location,
     this.state.sortBy,
-    this.state.price
+    this.state.price,
+    this.state.radius
 );
 
 event.preventDefault();
@@ -117,6 +135,21 @@ return Object.keys(this.priceOptions).map((priceOption) => {
 });
 }
 
+renderRadiusOptions() {
+return Object.keys(this.radiusOptions).map((radiusOption) => {
+    let radiusOptionValue = this.radiusOptions[radiusOption];
+    return (
+    <li
+        className={this.getRadiusClass(radiusOptionValue)}
+        key={radiusOptionValue}
+        onClick={this.handleRadiusChange.bind(this, radiusOptionValue)}
+    >
+        {radiusOption}
+    </li>
+    );
+});
+}
+
 // for a dropdown price
 // renderPriceOptions() {
 //     return (
@@ -135,23 +168,22 @@ return Object.keys(this.priceOptions).map((priceOption) => {
 render() {
 return (
     <div className="SearchBar">
-    <div className="SearchBar-sort-options">
+    {/* <div className="SearchBar-sort-options">
         <ul>{this.renderSortByOptions()}</ul>
         <ul>{this.renderPriceOptions()}</ul>
-    </div>
+        <ul>{this.renderRadiusOptions()}</ul>
+    </div> */}
     <div className="SearchBar-fields">
         <input
         placeholder="Search Businesses"
         onChange={this.handleTermChange}
         />
         <input placeholder="Where?" onChange={this.handleLocationChange} />
-        {/* <select>
-            <option price="1">$</option>
-            <option price="2">$$</option>
-            <option price="3">$$$</option>
-            <option price="4">$$$$</option>
-        </select> */}
-        
+    </div>
+    <div className="SearchBar-sort-options">
+        <ul>{this.renderSortByOptions()}</ul>
+        <ul>{this.renderPriceOptions()}</ul>
+        <ul>{this.renderRadiusOptions()}</ul>
     </div>
     <div className="SearchBar-submit">
         <a href=" " onClick={this.handleSearch}>Let's Go</a>
