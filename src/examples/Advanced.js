@@ -1,59 +1,45 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react'
+import React, { useState, useMemo, useRef } from 'react'
 import TinderCard from 'react-tinder-card'
-import Business from '../components/Business/Business'; // Import the Business component
-import Yelp from '../util/yelp';
 
+const db = [
+  {
+    name: 'Dough Zone',
+    url: `${process.env.PUBLIC_URL}/img/doughzone.jpeg`,
+    rating: 4.1,
+    price: '$$'
+  },
+  // {
+  //   name: 'Richard Hendricks',
+  //   url: './img/richard.jpg'
+  // },
+  {
+    name: 'Due Cucina',
+    url: `${process.env.PUBLIC_URL}/img/duecucina.jpeg`,
+    rating: 4.3,
+    price: '$$'
+  },
+  {
+    name: 'Crawfish King',
+    url: `${process.env.PUBLIC_URL}/img/crawfishking.jpeg`,
+    rating: 3.5,
+    price: '$$'
+  },
+  {
+    name: 'Chengdu Memory',
+    url: `${process.env.PUBLIC_URL}/img/chengdumemory.png`,
+    rating: 4.3,
+    price: '$$$'
+  },
+  {
+    name: 'Jacksons Catfish Corner',
+    url: `${process.env.PUBLIC_URL}/img/catfishcorner.jpeg`,
+    rating: 4.5,
+    price: '$$'
+  }
+]
 
-
-// const db = [
-//   {
-//     name: 'Dough Zone',
-//     url: `${process.env.PUBLIC_URL}/img/doughzone.jpeg`,
-//     rating: 4.1,
-//     price: '$$'
-//   },
-//   // {
-//   //   name: 'Richard Hendricks',
-//   //   url: './img/richard.jpg'
-//   // },
-//   {
-//     name: 'Due Cucina',
-//     url: `${process.env.PUBLIC_URL}/img/duecucina.jpeg`,
-//     rating: 4.3,
-//     price: '$$'
-//   },
-//   {
-//     name: 'Crawfish King',
-//     url: `${process.env.PUBLIC_URL}/img/crawfishking.jpeg`,
-//     rating: 3.5,
-//     price: '$$'
-//   },
-//   {
-//     name: 'Chengdu Memory',
-//     url: `${process.env.PUBLIC_URL}/img/chengdumemory.png`,
-//     rating: 4.3,
-//     price: '$$$'
-//   },
-//   {
-//     name: 'Jacksons Catfish Corner',
-//     url: `${process.env.PUBLIC_URL}/img/catfishcorner.jpeg`,
-//     rating: 4.5,
-//     price: '$$'
-//   }
-// ]
-
-function Advanced() {
-  const [businesses, setBusinesses] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchLocation, setSearchLocation] = useState('');
-
-  useEffect(() => {
-    if (searchTerm && searchLocation) {
-        // Fetch data from Yelp API with user's search inputs
-        Yelp.search(searchTerm, searchLocation, "best_match").then(data => setBusinesses(data));
-    }
-}, [searchTerm, searchLocation]);
-  const [currentIndex, setCurrentIndex] = useState(businesses.length - 1)
+function Advanced () {
+  const [currentIndex, setCurrentIndex] = useState(db.length - 1)
   const [lastDirection, setLastDirection] = useState()
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex)
@@ -61,7 +47,7 @@ function Advanced() {
   // create an array of references for child components
   const childRefs = useMemo(
     () =>
-      Array(businesses.length)
+      Array(db.length)
         .fill(0)
         .map((i) => React.createRef()),
     []
@@ -73,7 +59,7 @@ function Advanced() {
   }
 
   // these two const' calculate booleans to check if swiping  and going back are possible
-  // const canGoBack = currentIndex < businesses.length - 1
+  const canGoBack = currentIndex < db.length - 1
 
   const canSwipe = currentIndex >= 0
 
@@ -95,7 +81,7 @@ function Advanced() {
 
   // func to trigger the swipe action on a card
   const swipe = async (dir) => {
-    if (canSwipe && currentIndex < businesses.length) {
+    if (canSwipe && currentIndex < db.length) {
       await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
     }
   }
@@ -121,23 +107,23 @@ function Advanced() {
       />
       <h1>TasteBuds</h1>
       <div className='cardContainer'>
-        {businesses.map((business, index) => (
-            <TinderCard
-              ref={childRefs[index]}
-              className='swipe'
-              key={business.id}
-              onSwipe={(dir) => swiped(dir, business.name, index)}
-              onCardLeftScreen={() => outOfFrame(business.name, index)}
-            >
+        {db.map((character, index) => (
+          <TinderCard
+            ref={childRefs[index]}
+            className='swipe'
+            key={character.name}
+            onSwipe={(dir) => swiped(dir, character.name, index)}
+            onCardLeftScreen={() => outOfFrame(character.name, index)}
+          >
             <div
-              style={{ backgroundImage: 'url(' + business.url + ')' }}
+              style={{ backgroundImage: 'url(' + character.url + ')' }}
               className='card'
             >
               <div className='restContent'>
                 <div className='transparentBlock'>
-                  <h3>{business.name}</h3>
-                  <p>Rating: {business.rating}</p>
-                  <p>Price: {business.price}</p>
+                  <h3>{character.name}</h3>
+                  <p>Rating: {character.rating}</p>
+                  <p>Price: {character.price}</p>
                 </div>
               </div>
             </div>

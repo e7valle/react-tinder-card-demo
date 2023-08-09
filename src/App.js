@@ -1,15 +1,52 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import SearchBar from './components/SearchBar/SearchBar'; // Import your SearchBar component
-import Advanced from './examples/Advanced'; // Import the Advanced (Tinder card) component
+// // import React, { useState } from 'react'
+// import './App.css'
+// // import Switch from 'react-ios-switch'
 
+// // import Advanced from './examples/Advanced'
+// // import Simple from './examples/Simple'
+
+// import SearchBar from './components/SearchBar/SearchBar';
+
+// function App() {
+//   return (
+//     <div className='app'>
+//         <SearchBar />
+//         {/* <Advanced /> */}
+//     </div>
+//   );
+// }
+
+// export default App;
+
+// import React from "react";
+// import { Route } from "react-router-dom";
+// import SearchBar from "./components/SearchBar/SearchBar";
+// import Advanced from "./examples/Advanced";
+// import "./App.css";
+
+// function App() {
+//   return (
+//     <div className="app">
+//       <Route exact path="/" component={SearchBar} />
+//       <Route path="/advanced" component={Advanced} />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+import React from 'react';
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'; // Update this import
+import SearchBar from './components/SearchBar/SearchBar';
+import Advanced from './examples/Advanced';
+import './App.css';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" exact element={<SearchBar />} />
-        <Route path="/Advanced" element={<Advanced />} />
+        <Route path="/" element={<SearchBar />} />
+        <Route path="/advanced" element={<Advanced />} />
       </Routes>
     </Router>
   );
@@ -17,34 +54,4 @@ function App() {
 
 export default App;
 
-// // import React, { useState } from 'react'
-// import './App.css'
-// // import Route from 'react-ios-Route'
 
-// import Advanced from './examples/Advanced'
-// // import Simple from './examples/Simple'
-
-// function App() {
-//   return (
-//     <div className='app'>
-//       <Advanced />
-//     </div>
-//   );
-// }
-
-// export default App;
-
-// // function App () {
-// //   const [showAdvanced, setShowAdvanced] = useState(true)
-
-// //   return (
-// //     <div className='app'>
-// //       {showAdvanced ? <Advanced /> : <Simple />}
-// //       <div className='row'>
-// //         <p style={{ color: '#fff' }}>Show advanced example</p> <Switch checked={showAdvanced} onChange={setShowAdvanced} />
-// //       </div>
-// //     </div>
-// //   )
-// // }
-
-// // export default App
