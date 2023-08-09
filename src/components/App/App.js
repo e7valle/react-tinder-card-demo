@@ -28,7 +28,7 @@ render() {
     <div className="App">
         <h1>Yelp</h1>
         <SearchBar searchYelp={this.searchYelp} />
-        <BusinessList businesses={this.state.businesses} />
+        {/* <BusinessList businesses={this.state.businesses} /> */}
         <Advanced 
             // term={this.state.term}
             // location={this.state.location}
