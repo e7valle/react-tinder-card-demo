@@ -1,5 +1,7 @@
 import React from "react";
 import "./SearchBar.css";
+import { Link } from 'react-router-dom';
+import './SearchBar.css';
 
 class SearchBar extends React.Component {
 constructor(props) {
@@ -80,7 +82,19 @@ return (
         <input placeholder="Where?" onChange={this.handleLocationChange} />
     </div>
     <div className="SearchBar-submit">
-        <a href=" " onClick={this.handleSearch}>Let's Go</a>
+    <Link
+    to={{
+    pathname: '/advanced',
+    state: {
+        term: this.state.term,
+        location: this.state.location,
+        sortBy: this.state.sortBy,
+    },
+    }}
+    onClick={this.handleSearch}
+    >
+    Let's Go
+    </Link>
     </div>
     </div>
 );

@@ -1,5 +1,4 @@
-const apiKey =
-  "7r4Z8PnSxIkwyun5Gb3tJ4PqbWf4wCCtjjnITzoAD-qMNqIDl2WsoSBoxbRP4IAMSj7FmEmGgXo8DYklIKkBNDim9g3NrgFKaqb7qhrAvA0Cpw9zYBJDnuEhGotrX3Yx"; // Insert API key here.
+const apiKey = process.env.REACT_APP_API_KEY;
 
 const Yelp = {
     search(term, location, sortBy) {
@@ -8,6 +7,7 @@ const Yelp = {
             {
             headers: {
                 Authorization: `Bearer ${apiKey}`,
+        
             },
             }
         )
