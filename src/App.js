@@ -21,20 +21,20 @@
 //     });
 //   };
 
-//   // return (
-//   //   <Router>
-//   //     <Routes>
-//   //       <Route 
-//   //       path="/" 
-//   //       element={<SearchBar setTerm={setTerm} setLocation={setLocation} setSortBy={setSortBy} />} 
-//   //       />
-//   //       <Route 
-//   //       path="/advanced" 
-//   //       element={<Advanced term={term} location={location} sortBy={sortBY} />} 
-//   //       />
-//   //     </Routes>
-//   //   </Router>
-//   // );
+  // return (
+  //   <Router>
+  //     <Routes>
+  //       <Route 
+  //       path="/" 
+  //       element={<SearchBar setTerm={setTerm} setLocation={setLocation} setSortBy={setSortBy} />} 
+  //       />
+  //       <Route 
+  //       path="/advanced" 
+  //       element={<Advanced term={term} location={location} sortBy={sortBY} />} 
+  //       />
+  //     </Routes>
+  //   </Router>
+  // );
 
 
 //   // For part 2
@@ -71,15 +71,35 @@ function App() {
     });
   };
 
+  // THIIISSS works!!!!!
+  // return (
+  //   <Router>
+  //     <div className="App">
+  //       <h1>TasteBuds</h1>
+  //       <SearchBar searchYelp={searchYelp} />
+  //       <Routes>
+  //         <Route
+  //           path="/"
+  //           element={<Advanced businesses={businesses} />} // Pass businesses here
+  //         />
+  //       </Routes>
+  //     </div>
+  //   </Router>
+  // );
+
+  // ^^^^^^^^^^^^^THIS ACTAULLY TAKES YOU TO A DIFF PAGE BUT WITH NO CARDS
   return (
     <Router>
-      <div className="App">
-        <h1>TasteBuds</h1>
-        <SearchBar searchYelp={searchYelp} />
+      <div>
+        <h1>Tastebudssssss in App.js</h1>
         <Routes>
-          <Route
-            path="/"
-            element={<Advanced businesses={businesses} />} // Pass businesses here
+          <Route 
+            path="/" 
+            element={<SearchBar searchYelp={searchYelp} />} 
+          />
+          <Route 
+            path="/advanced" 
+            element={<Advanced businesses={businesses} />} 
           />
         </Routes>
       </div>
