@@ -1,151 +1,108 @@
-import React, { useState, useMemo, useRef } from 'react'
-import TinderCard from 'react-tinder-card'
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import TinderCard from 'react-tinder-card';
+import Yelp from '../../src/util/yelp'; // Import your Yelp module
+import { useLocation } from 'react-router-dom';
 
-const db = [
-  {
-    name: 'Dough Zone',
-    url: `${process.env.PUBLIC_URL}/img/doughzone.jpeg`,
-    rating: 4.1,
-    price: '$$'
-  },
-  // {
-  //   name: 'Richard Hendricks',
-  //   url: './img/richard.jpg'
-  // },
-  {
-    name: 'Due Cucina',
-    url: `${process.env.PUBLIC_URL}/img/duecucina.jpeg`,
-    rating: 4.3,
-    price: '$$'
-  },
-  {
-    name: 'Crawfish King',
-    url: `${process.env.PUBLIC_URL}/img/crawfishking.jpeg`,
-    rating: 3.5,
-    price: '$$'
-  },
-  {
-    name: 'Chengdu Memory',
-    url: `${process.env.PUBLIC_URL}/img/chengdumemory.png`,
-    rating: 4.3,
-    price: '$$$'
-  },
-  {
-    name: 'Jacksons Catfish Corner',
-    url: `${process.env.PUBLIC_URL}/img/catfishcorner.jpeg`,
-    rating: 4.5,
-    price: '$$'
-  }
-]
-
-function Advanced () {
-  const [currentIndex, setCurrentIndex] = useState(db.length - 1)
-  const [lastDirection, setLastDirection] = useState()
-  // used for outOfFrame closure
-  const currentIndexRef = useRef(currentIndex)
-
-  // create an array of references for child components
+function Advanced() {
+  const location = useLocation();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [businesses, setBusinesses] = useState([]);
+  const [lastDirection, setLastDirection] = useState();
+  const currentIndexRef = useRef(currentIndex);
   const childRefs = useMemo(
     () =>
-      Array(db.length)
+      Array(businesses.length)
         .fill(0)
-        .map((i) => React.createRef()),
-    []
-  )
+        .map(() => React.createRef()),
+    [businesses.length]
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedBusinesses = await Yelp.search(
+          location.state.term,
+          location.state.location,
+          location.state.sortBy
+        );
+        setBusinesses(fetchedBusinesses);
+      } catch (error) {
+        console.error('Error fetching data from Yelp:', error);
+      }
+    };
+  
+    fetchData();
+  }, [location.state]);
 
   const updateCurrentIndex = (val) => {
-    setCurrentIndex(val)
-    currentIndexRef.current = val
-  }
+    setCurrentIndex(val);
+    currentIndexRef.current = val;
+  };
 
-  // these two const' calculate booleans to check if swiping  and going back are possible
-  const canGoBack = currentIndex < db.length - 1
+  const canSwipe = currentIndex >= 0 && currentIndex < businesses.length;
 
-  const canSwipe = currentIndex >= 0
-
-// this func handles swiping of cards
-  // set last direction and decrease current index
   const swiped = (direction, nameToDelete, index) => {
-    setLastDirection(direction)
-    updateCurrentIndex(index - 1)
-  }
+    setLastDirection(direction);
+    updateCurrentIndex(index + 1);
+  };
 
   const outOfFrame = (name, idx) => {
-    console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
-    // handle the case in which go back is pressed before card goes outOfFrame
-    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard()
-    // TODO: when quickly swipe and restore multiple times the same card,
-    // it happens multiple outOfFrame events are queued and the card disappear
-    // during latest swipes. Only the last outOfFrame event should be considered valid
-  }
+    console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
+    // Handle the case in which go back is pressed before card goes outOfFrame
+    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
+    // TODO: Handle when quickly swipe and restore multiple times the same card
+  };
 
-  // func to trigger the swipe action on a card
   const swipe = async (dir) => {
-    if (canSwipe && currentIndex < db.length) {
-      await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
+    if (canSwipe) {
+      await childRefs[currentIndex].current.swipe(dir);
     }
-  }
-
-  // funct to go back to the previous card
-  // increase current index and show card
-  // const goBack = async () => {
-  //   if (!canGoBack) return
-  //   const newIndex = currentIndex + 1
-  //   updateCurrentIndex(newIndex)
-  //   await childRefs[newIndex].current.restoreCard()
-  // }
+  };
 
   return (
     <div>
-      <link
-        href='https://fonts.googleapis.com/css?family=Damion&display=swap'
-        rel='stylesheet'
-      />
-      <link
-        href='https://fonts.googleapis.com/css?family=Alatsi&display=swap'
-        rel='stylesheet'
-      />
       <h1>TasteBuds</h1>
-      <div className='cardContainer'>
-        {db.map((character, index) => (
+      <div className="cardContainer">
+        {businesses.map((business, index) => (
           <TinderCard
             ref={childRefs[index]}
-            className='swipe'
-            key={character.name}
-            onSwipe={(dir) => swiped(dir, character.name, index)}
-            onCardLeftScreen={() => outOfFrame(character.name, index)}
+            className="swipe"
+            key={business.id}
+            onSwipe={(dir) => swiped(dir, business.id, index)}
+            onCardLeftScreen={() => outOfFrame(business.id, index)}
           >
             <div
-              style={{ backgroundImage: 'url(' + character.url + ')' }}
-              className='card'
+              style={{ backgroundImage: `url(${business.imageSrc})` }}
+              className="card"
             >
-              <div className='restContent'>
-                <div className='transparentBlock'>
-                  <h3>{character.name}</h3>
-                  <p>Rating: {character.rating}</p>
-                  <p>Price: {character.price}</p>
+              <div className="restContent">
+                <div className="transparentBlock">
+                  <h3>{business.name}</h3>
+                  <p>Rating: {business.rating}</p>
+                  <p>Price: {business.price}</p>
                 </div>
               </div>
             </div>
           </TinderCard>
         ))}
       </div>
-      <div className='buttons'>
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Not my Flavor!</button>
-        {/* <button style={{ backgroundColor: !canGoBack && '#c3c4d3' }} onClick={() => goBack()}>Undo swipe!</button> */}
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Tastebud Approved!</button>
+      <div className="buttons">
+        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>
+          Not my Flavor!
+        </button>
+        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>
+          Tastebud Approved!
+        </button>
       </div>
       {lastDirection ? (
-        <h2 key={lastDirection} className='infoText'>
+        <h2 key={lastDirection} className="infoText">
           You swiped {lastDirection}
         </h2>
       ) : (
-        <h2 className='infoText'>
-          Swipe or click and decide together! 
-        </h2>
+        <h2 className="infoText">Swipe or click and decide together!</h2>
       )}
     </div>
-  )
+  );
 }
 
-export default Advanced
+export default Advanced;
