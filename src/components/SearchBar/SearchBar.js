@@ -50,7 +50,8 @@ this.props.searchYelp(
     this.state.sortBy
 );
 
-// event.preventDefault();     // REMOVED THIS FOR SEPERATE PAGE RENDERING
+// YOURE THE PROBLEM ITS YOU EVENT.PREVENTDEFAULT
+// event.preventDefault();     // REMOVED THIS FOR SEPERATE PAGE RENDERING 
 }
 
 renderSortByOptions() {
