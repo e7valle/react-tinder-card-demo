@@ -72,7 +72,7 @@ function Advanced ({ businesses  }) {
         href='https://fonts.googleapis.com/css?family=Alatsi&display=swap'
         rel='stylesheet'
       />
-      <h1>TasteBuds</h1>
+      {/* <h1>TasteBuds</h1> */}
       <div className='cardContainer'>
         {businesses.map((business, index) => (
           <TinderCard
