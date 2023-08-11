@@ -73,47 +73,49 @@ function Advanced ({ businesses  }) {
         rel='stylesheet'
       />
       {/* <h1>TasteBuds</h1> */}
-      <div className='cardContainer'>
-        {businesses.map((business, index) => (
-          <TinderCard
-            ref={childRefs[index]}
-            className='swipe'
-            key={business.id}
-            onSwipe={(dir) => swiped(dir, business.name, index)}
-            onCardLeftScreen={() => outOfFrame(business.name, index)}
-          >
-            <div
-              // style={{ backgroundImage: 'url(' + business.url + ')' }}
-              style={{ backgroundImage: 'url(' + business.imageSrc + ')' }}
-              className='card'
+      <div className='pageContainer'>
+        <div className='cardContainer'>
+          {businesses.map((business, index) => (
+            <TinderCard
+              ref={childRefs[index]}
+              className='swipe'
+              key={business.id}
+              onSwipe={(dir) => swiped(dir, business.name, index)}
+              onCardLeftScreen={() => outOfFrame(business.name, index)}
             >
-              <div className='restContent'>
-                <div className='transparentBlock'>
-                  <h3>{business.name}</h3>
-                  <p>Rating: {business.rating}</p>
-                  <p>Price: {business.price}</p>
-                  {/* <p>Address:{business.location.address1} </p> */}
+              <div
+                // style={{ backgroundImage: 'url(' + business.url + ')' }}
+                style={{ backgroundImage: 'url(' + business.imageSrc + ')' }}
+                className='card'
+              >
+                <div className='restContent'>
+                  <div className='transparentBlock'>
+                    <h3>{business.name}</h3>
+                    <p>Rating: {business.rating}</p>
+                    <p>Price: {business.price}</p>
+                    {/* <p>Address:{business.location.address1} </p> */}
+                  </div>
                 </div>
               </div>
-            </div>
-          </TinderCard>
-        ))}
+            </TinderCard>
+          ))}
+        </div>
+        <div className='buttons'>
+          <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Not my Flavor!</button>
+          {/* <button style={{ backgroundColor: !canGoBack && '#c3c4d3' }} onClick={() => goBack()}>Undo swipe!</button> */}
+          <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Tastebud Approved!</button>
+        </div>
+        {lastDirection ? (
+          <h2 key={lastDirection} className='infoText'>
+            You swiped {lastDirection}
+          </h2>
+        ) : (
+          <h2 className='infoText'>
+            Swipe or click and decide together! 
+          </h2>
+        )}
+        </div>
       </div>
-      <div className='buttons'>
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Not my Flavor!</button>
-        {/* <button style={{ backgroundColor: !canGoBack && '#c3c4d3' }} onClick={() => goBack()}>Undo swipe!</button> */}
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Tastebud Approved!</button>
-      </div>
-      {lastDirection ? (
-        <h2 key={lastDirection} className='infoText'>
-          You swiped {lastDirection}
-        </h2>
-      ) : (
-        <h2 className='infoText'>
-          Swipe or click and decide together! 
-        </h2>
-      )}
-    </div>
   )
 }
 

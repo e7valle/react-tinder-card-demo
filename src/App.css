@@ -56,10 +56,26 @@ h2 {
   position: absolute;
 }
 
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
 .cardContainer {
-  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  position: relative; /* Needed for absolute positioning within */
+  /* width: 90vw;
   max-width: 260px;
-  height: 300px;
+  height: 300px; */
 }
 
 .card {
@@ -131,9 +147,15 @@ h2 {
 }
 
 .buttons {
-  margin: 20px;
+  position: absolute;
+  bottom: 0; /* Position the buttons at the bottom of the cardContainer */
+  left: 0; /* Align the buttons to the left of the cardContainer */
+  right: 0; /* Align the buttons to the right of the cardContainer */
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  /* margin: 20px;
+  display: flex;
+  flex-wrap: wrap; */
 }
 
 @media (max-width: 625px) {
