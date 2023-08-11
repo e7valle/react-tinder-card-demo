@@ -6,10 +6,13 @@ function Advanced ({ businesses  }) {
   console.log("Received businesses:", businesses);
   const [currentIndex, setCurrentIndex] = useState(businesses.length - 1)
   const [lastDirection, setLastDirection] = useState()
+
+  // START of like
+  const [swipedRestaurants, setSwipedRestaurants] = useState({});
+
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex)
 
-  // **********tring to add real time data************
 
   // create an array of references for child components
   const childRefs = useMemo(
@@ -33,9 +36,16 @@ function Advanced ({ businesses  }) {
 // this func handles swiping of cards
   // set last direction and decrease current index
   const swiped = (direction, nameToDelete, index) => {
-    setLastDirection(direction)
-    updateCurrentIndex(index - 1)
-  }
+    console.log('nameToDelete: ', nameToDelete);
+    setLastDirection(direction);
+    updateCurrentIndex(index - 1);
+    if (direction === 'right') {
+      setSwipedRestaurants((prevSwipedRestaurants)=>({
+        ...prevSwipedRestaurants,
+        [nameToDelete]: (prevSwipedRestaurants[nameToDelete] || 0) + 1,
+      }));
+    }
+  };
 
   const outOfFrame = (name, idx) => {
     console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
@@ -113,6 +123,16 @@ function Advanced ({ businesses  }) {
           Swipe or click and decide together! 
         </h2>
       )}
+      <div className='swiped-restuarants'>
+        <h2>Swiped Restaurants:</h2>
+        <ul>
+          {Object.entries(swipedRestaurants).map(([restaurant, count])=>(
+            <li key={restaurant}>
+              {restaurant}: {count} times
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }
