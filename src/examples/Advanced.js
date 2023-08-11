@@ -5,12 +5,14 @@ import TinderCard from 'react-tinder-card'
 // import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+// moving it here might work??
+const uniqueBusinesses = new Set();
 
 function Advanced ({ businesses, swipedRestaurants, setSwipedRestaurants }) {
   console.log("Received businesses:", businesses);
   const [currentIndex, setCurrentIndex] = useState(businesses.length - 1)
   const [lastDirection, setLastDirection] = useState()
-  // const [swipedRestaurants, setSwipedRestaurants] = useState({}); //******removing to render a seperate page ********
+  // const uniqueBusinesses = new Set();  //trying to fix by usng a set ************
 
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex)
@@ -35,20 +37,39 @@ function Advanced ({ businesses, swipedRestaurants, setSwipedRestaurants }) {
 
   const canSwipe = currentIndex >= 0
 
-
+// first version before I mess it up
 // this func handles swiping of cards
   // set last direction and decrease current index
-  const swiped = (direction, nameToDelete, index) => {
-    console.log('nameToDelete: ', nameToDelete);
-    setLastDirection(direction);
-    updateCurrentIndex(index - 1);
-    if (direction === 'right') {
+  // const swiped = (direction, nameToDelete, index) => {
+  //   console.log('nameToDelete: ', nameToDelete);
+  //   setLastDirection(direction);
+  //   updateCurrentIndex(index - 1);
+  //   if (direction === 'right') {
+  //     setSwipedRestaurants((prevSwipedRestaurants)=>({
+  //       ...prevSwipedRestaurants,
+  //       [nameToDelete]: (prevSwipedRestaurants[nameToDelete] || 0) + 1,
+  //     }));
+  //   }
+  // };
+
+    // ************* TRYIGN TO FIX BUG OF RENDERING ONLY ON 5 RIGHT SWIPES88*********PART 33333333
+    const swiped = (direction, nameToDelete, index) => {
+      console.log('nameToDelete: ', nameToDelete);
+      setLastDirection(direction);
+      updateCurrentIndex(index - 1);
+
+      if (!uniqueBusinesses.has(nameToDelete)) {
+        uniqueBusinesses.add(nameToDelete);
+      }
+
+      if (direction === 'right') {
+    
       setSwipedRestaurants((prevSwipedRestaurants)=>({
         ...prevSwipedRestaurants,
         [nameToDelete]: (prevSwipedRestaurants[nameToDelete] || 0) + 1,
       }));
     }
-  };
+    };
 
   const outOfFrame = (name, idx) => {
     console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
@@ -78,7 +99,15 @@ function Advanced ({ businesses, swipedRestaurants, setSwipedRestaurants }) {
   // *****to render to a diff page*****
   const navigate = useNavigate();
 
-  if (Object.keys(swipedRestaurants).length === businesses.length) {
+  // if (Object.keys(swipedRestaurants).length === businesses.length) {
+  //   const nextPage = `/results/${JSON.stringify(swipedRestaurants)}`;
+  //   navigate(nextPage);
+  // }
+
+
+  // Part 3 of trying to with sets ***********
+  console.log(uniqueBusinesses)
+  if (uniqueBusinesses.size === businesses.length) {
     const nextPage = `/results/${JSON.stringify(swipedRestaurants)}`;
     navigate(nextPage);
   }
