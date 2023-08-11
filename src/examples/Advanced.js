@@ -6,8 +6,6 @@ function Advanced ({ businesses  }) {
   console.log("Received businesses:", businesses);
   const [currentIndex, setCurrentIndex] = useState(businesses.length - 1)
   const [lastDirection, setLastDirection] = useState()
-
-  // START of like
   const [swipedRestaurants, setSwipedRestaurants] = useState({});
 
   // used for outOfFrame closure
