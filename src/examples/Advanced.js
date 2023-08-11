@@ -1,12 +1,16 @@
 import React, { useState,useMemo, useRef } from 'react'
 import TinderCard from 'react-tinder-card'
+// to render to a different page
+// import {Link} from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
-function Advanced ({ businesses  }) {
+function Advanced ({ businesses, swipedRestaurants, setSwipedRestaurants }) {
   console.log("Received businesses:", businesses);
   const [currentIndex, setCurrentIndex] = useState(businesses.length - 1)
   const [lastDirection, setLastDirection] = useState()
-  const [swipedRestaurants, setSwipedRestaurants] = useState({});
+  // const [swipedRestaurants, setSwipedRestaurants] = useState({}); //******removing to render a seperate page ********
 
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex)
@@ -30,6 +34,7 @@ function Advanced ({ businesses  }) {
   const canGoBack = currentIndex < businesses.length - 1
 
   const canSwipe = currentIndex >= 0
+
 
 // this func handles swiping of cards
   // set last direction and decrease current index
@@ -69,6 +74,14 @@ function Advanced ({ businesses  }) {
   //   updateCurrentIndex(newIndex)
   //   await childRefs[newIndex].current.restoreCard()
   // }
+
+  // *****to render to a diff page*****
+  const navigate = useNavigate();
+
+  if (Object.keys(swipedRestaurants).length === businesses.length) {
+    const nextPage = `/results/${JSON.stringify(swipedRestaurants)}`;
+    navigate(nextPage);
+  }
 
   return (
     <div>
@@ -131,6 +144,7 @@ function Advanced ({ businesses  }) {
           ))}
         </ul>
       </div>
+      {/* <Link to='/liked-results' >View Liked Restaurants</Link> */}
     </div>
   )
 }

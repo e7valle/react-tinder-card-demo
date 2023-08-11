@@ -5,8 +5,16 @@ import Advanced from "./examples/Advanced";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Yelp from "./util/yelp";
 
+//**********for rendering a different page
+// import LikedResults from "./components/LikedResults/LikedResults";
+import ResultsPage from "./components/ResultsPage/ResultsPage";
+
 function App() {
   const [businesses, setBusinesses] = useState([]);
+
+  //********for rendering a difff page
+  // const [likedRestaurants, setLikedRestaurants] = useState({});
+  const [swipedRestaurants, setSwipedRestaurants] = useState({})
 
   const searchYelp = (term, location, sortBy) => {
     Yelp.search(term, location, sortBy).then((fetchedBusinesses) => {
@@ -42,8 +50,11 @@ function App() {
           />
           <Route 
             path="/advanced" 
-            element={<Advanced businesses={businesses} />} 
+            element={<Advanced businesses={businesses} swipedRestaurants={swipedRestaurants} setSwipedRestaurants={setSwipedRestaurants} />} 
           />
+          <Route 
+            path='/results/:swipedRestaurants' element={<ResultsPage  />} /> 
+            {/* element={<LikedResults likedRestaurants={likedRestaurants} />} /> */}
         </Routes>
       </div>
     </Router>
