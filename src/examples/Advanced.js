@@ -163,17 +163,6 @@ function Advanced ({ businesses, swipedRestaurants, setSwipedRestaurants }) {
           Swipe or click and decide together! 
         </h2>
       )}
-      <div className='swiped-restuarants'>
-        <h2>Swiped Restaurants:</h2>
-        <ul>
-          {Object.entries(swipedRestaurants).map(([restaurant, count])=>(
-            <li key={restaurant}>
-              {restaurant}: {count} times
-            </li>
-          ))}
-        </ul>
-      </div>
-      {/* <Link to='/liked-results' >View Liked Restaurants</Link> */}
     </div>
   )
 }

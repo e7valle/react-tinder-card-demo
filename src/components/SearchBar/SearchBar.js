@@ -77,10 +77,10 @@ return (
     </div>
     <div className="SearchBar-fields">
         <input
-        placeholder="Search Businesses"
+        placeholder="Cuisine Type"
         onChange={this.handleTermChange}
         />
-        <input placeholder="Where?" onChange={this.handleLocationChange} />
+        <input placeholder="Location" onChange={this.handleLocationChange} />
     </div>
     <div className="SearchBar-submit">
     <Link
