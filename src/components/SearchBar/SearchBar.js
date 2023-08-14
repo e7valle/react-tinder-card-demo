@@ -49,9 +49,11 @@ this.props.searchYelp(
     this.state.location,
     this.state.sortBy
 );
+//Start session
+this.props.socket.emit('startSession', this.props.roomCode);
 
-// YOURE THE PROBLEM ITS YOU EVENT.PREVENTDEFAULT
-// event.preventDefault();     // REMOVED THIS FOR SEPERATE PAGE RENDERING 
+ // Prevent the default form submission behavior
+ event.preventDefault();
 }
 
 renderSortByOptions() {

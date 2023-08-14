@@ -1,44 +1,41 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import io from 'socket.io-client';
+import { Routes, Route, BrowserRouter as Router, Navigate } from "react-router-dom";
 import Advanced from "./examples/Advanced";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Yelp from "./util/yelp";
+import ResultsPage from "../src/components/ResultsPage/ResultsPage";
+import LandingPage from '../src/components/LandingPage';
 
-//**********for rendering a different page
-// import LikedResults from "./components/LikedResults/LikedResults";
-import ResultsPage from "./components/ResultsPage/ResultsPage";
+// Create a Socket.IO instance and connect to the server
+const socket = io('http://localhost:3001'); 
 
 function App() {
   const [businesses, setBusinesses] = useState([]);
-
-  //********for rendering a difff page
-  // const [likedRestaurants, setLikedRestaurants] = useState({});
+  const [roomCode, setRoomCode] = useState(""); // To store the room code
   const [swipedRestaurants, setSwipedRestaurants] = useState({})
 
+  // Function to handle room creation
+  const handleCreateRoom = () => {
+    // Emit a 'createRoom' event to the server
+    socket.emit('createRoom', (generatedCode) => {
+      setRoomCode(generatedCode);
+    });
+  };
+
+  // Function to handle joining a room
+  const handleJoinRoom = (code) => {
+    setRoomCode(code);
+  };
+
+  // Function to initiate Yelp search
   const searchYelp = (term, location, sortBy) => {
     Yelp.search(term, location, sortBy).then((fetchedBusinesses) => {
       setBusinesses(fetchedBusinesses);
     });
   };
 
-  // THIIISSS works!!!!!
-  // return (
-  //   <Router>
-  //     <div className="App">
-  //       <h1>TasteBuds</h1>
-  //       <SearchBar searchYelp={searchYelp} />
-  //       <Routes>
-  //         <Route
-  //           path="/"
-  //           element={<Advanced businesses={businesses} />} // Pass businesses here
-  //         />
-  //       </Routes>
-  //     </div>
-  //   </Router>
-  // );
-
-  // ^^^^^^^^^^^^^THIS ACTAULLY TAKES YOU TO A DIFF PAGE BUT WITH NO CARDS
   return (
     <Router>
       <div>
@@ -46,6 +43,9 @@ function App() {
         <Routes>
           <Route 
             path="/" 
+            element={<LandingPage handleCreateRoom={handleCreateRoom} handleJoinRoom={handleJoinRoom} />} />
+          <Route 
+            path="/search" 
             element={<SearchBar searchYelp={searchYelp} />} 
           />
           <Route 
@@ -54,13 +54,9 @@ function App() {
           />
           <Route 
             path='/results/:swipedRestaurants' element={<ResultsPage  />} /> 
-            {/* element={<LikedResults likedRestaurants={likedRestaurants} />} /> */}
         </Routes>
       </div>
     </Router>
   );
 }
 export default App;
-
-
-
