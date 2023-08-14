@@ -9,10 +9,12 @@ height: 25rem;
 }
 
 .SearchBar-sort-options ul {
+list-style-type: none;
 display: flex;
 justify-content: center;
 margin-bottom: 2.22rem;
 color: #eed726;
+border-radius: 4px;
 background-color: rgba(140, 10, 60, 0.733);
 }
 
@@ -20,7 +22,7 @@ background-color: rgba(140, 10, 60, 0.733);
 cursor: pointer;
 width: 4.33rem;
 border-bottom: 1px solid #8e154d;
-padding: 0 2.58rem .33rem 2.58rem;
+padding: .5rem 2.58rem .5rem 2.58rem;
 line-height: 1.13;
 text-align: center;
 font-weight: 600;
