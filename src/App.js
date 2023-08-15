@@ -4,6 +4,7 @@ import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import Advanced from "./examples/Advanced";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Yelp from "./util/yelp";
+import Homepage from "./components/Homepage";
 
 //**********for rendering a different page
 // import LikedResults from "./components/LikedResults/LikedResults";
@@ -22,23 +23,6 @@ function App() {
     });
   };
 
-  // THIIISSS works!!!!!
-  // return (
-  //   <Router>
-  //     <div className="App">
-  //       <h1>TasteBuds</h1>
-  //       <SearchBar searchYelp={searchYelp} />
-  //       <Routes>
-  //         <Route
-  //           path="/"
-  //           element={<Advanced businesses={businesses} />} // Pass businesses here
-  //         />
-  //       </Routes>
-  //     </div>
-  //   </Router>
-  // );
-
-  // ^^^^^^^^^^^^^THIS ACTAULLY TAKES YOU TO A DIFF PAGE BUT WITH NO CARDS
   return (
     <Router>
       <div>
@@ -46,15 +30,20 @@ function App() {
         <Routes>
           <Route 
             path="/" 
-            element={<SearchBar searchYelp={searchYelp} />} 
+              element={<Homepage />} // Render the HomePage component at the root path
+            />
+            <Route 
+              path="/play" 
+              element={<SearchBar searchYelp={searchYelp} />} // Render the SearchBar component at the /search path
           />
           <Route 
             path="/advanced" 
             element={<Advanced businesses={businesses} swipedRestaurants={swipedRestaurants} setSwipedRestaurants={setSwipedRestaurants} />} 
           />
           <Route 
-            path='/results/:swipedRestaurants' element={<ResultsPage  />} /> 
-            {/* element={<LikedResults likedRestaurants={likedRestaurants} />} /> */}
+              path='/results/:swipedRestaurants' 
+              element={<ResultsPage />} 
+            />
         </Routes>
       </div>
     </Router>
