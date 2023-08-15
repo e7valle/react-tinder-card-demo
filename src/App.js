@@ -15,7 +15,8 @@ function App() {
 
   //********for rendering a difff page
   // const [likedRestaurants, setLikedRestaurants] = useState({});
-  const [swipedRestaurants, setSwipedRestaurants] = useState({})
+  const [swipedRestaurants, setSwipedRestaurants] = useState({});
+  const [currentPrivateRoomCode, setCurrentPrivateRoomCode] = useState(null); 
 
   const searchYelp = (term, location, sortBy) => {
     Yelp.search(term, location, sortBy).then((fetchedBusinesses) => {
@@ -30,11 +31,11 @@ function App() {
         <Routes>
           <Route 
             path="/" 
-              element={<Homepage />} // Render the HomePage component at the root path
+              element={<Homepage setCurrentPrivateRoomCode={setCurrentPrivateRoomCode}/>} // Render the HomePage component at the root path
             />
             <Route 
               path="/play" 
-              element={<SearchBar searchYelp={searchYelp} />} // Render the SearchBar component at the /search path
+              element={<SearchBar searchYelp={searchYelp} privateRoomCode={currentPrivateRoomCode}/>} // Render the SearchBar component at the /search path
           />
           <Route 
             path="/advanced" 

@@ -96,6 +96,9 @@ return (
     >
     Let's Go
     </Link>
+    {this.props.privateRoomCode && (
+                        <p>Current Private Room Code: {this.props.privateRoomCode}</p>
+                    )}
     </div>
     </div>
 );
