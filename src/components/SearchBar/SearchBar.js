@@ -71,33 +71,35 @@ return Object.keys(this.sortByOptions).map((sortByOption) => {
 
 render() {
 return (
-    <div className="SearchBar">
-    <div className="SearchBar-sort-options">
-        <ul>{this.renderSortByOptions()}</ul>
-    </div>
-    <div className="SearchBar-fields">
-        <input
-        placeholder="Cuisine Type"
-        onChange={this.handleTermChange}
-        />
-        <input placeholder="Location" onChange={this.handleLocationChange} />
-    </div>
-    <div className="SearchBar-submit">
-    <Link
-    to={{
-    pathname: '/advanced',
-    state: {
-        term: this.state.term,
-        location: this.state.location,
-        sortBy: this.state.sortBy,
-    },
-    }}
-    onClick={this.handleSearch}
-    >
-    Let's Go
-    </Link>
-    </div>
-    </div>
+    <body>
+        <div className="SearchBar">
+            <div className="SearchBar-sort-options">
+                <ul>{this.renderSortByOptions()}</ul>
+            </div>
+            <div className="SearchBar-fields">
+                <input
+                placeholder="Cuisine Type"
+                onChange={this.handleTermChange}
+                />
+                <input placeholder="Location" onChange={this.handleLocationChange} />
+            </div>
+            <div className="SearchBar-submit">
+            <Link
+            to={{
+            pathname: '/advanced',
+            state: {
+                term: this.state.term,
+                location: this.state.location,
+                sortBy: this.state.sortBy,
+            },
+            }}
+            onClick={this.handleSearch}
+            >
+            Let's Go
+            </Link>
+            </div>
+        </div>
+    </body>
 );
 }
 }

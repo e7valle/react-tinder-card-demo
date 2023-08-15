@@ -1,8 +1,9 @@
 .SearchBar {
 display: flex;
 flex-direction: column;
-justify-content: center;
-background-image: url('./tastebuds_logo.png');
+align-items: flex-end;
+justify-content: flex-start;
+background-image: url('./tb_background.png');
 background-size: cover;
 background-repeat: no-repeat;
 height: 25rem;
