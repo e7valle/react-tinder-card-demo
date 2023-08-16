@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import Advanced from "./examples/Advanced";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Yelp from "./util/yelp";
 import Homepage from "./components/Homepage";
+
+// You can listen to socket events from the app, too
+import socket from "./components/socket";
 
 //**********for rendering a different page
 // import LikedResults from "./components/LikedResults/LikedResults";
@@ -23,6 +26,11 @@ function App() {
       setBusinesses(fetchedBusinesses);
     });
   };
+
+  useEffect(() => {
+    // Register for socket events in here.
+    // See remarks docs page: https://socket.io/how-to/use-with-react#remarks-about-the-useeffect-hook
+  }, [])
 
   return (
     <Router>
@@ -51,6 +59,5 @@ function App() {
   );
 }
 export default App;
-
 
 
