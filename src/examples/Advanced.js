@@ -122,33 +122,35 @@ function Advanced ({ businesses, swipedRestaurants, setSwipedRestaurants }) {
         href='https://fonts.googleapis.com/css?family=Alatsi&display=swap'
         rel='stylesheet'
       />
-      <h1>TasteBuds</h1>
-      <div className='cardContainer'>
-        {businesses.map((business, index) => (
-          <TinderCard
-            ref={childRefs[index]}
-            className='swipe'
-            key={business.id}
-            onSwipe={(dir) => swiped(dir, business.name, index)}
-            onCardLeftScreen={() => outOfFrame(business.name, index)}
-          >
-            <div
-              // style={{ backgroundImage: 'url(' + business.url + ')' }}
-              style={{ backgroundImage: 'url(' + business.imageSrc + ')' }}
-              className='card'
+      {/* <h1>TasteBuds</h1> */}
+      <div className= 'pageContainer'>
+        <div className='cardContainer'>
+          {businesses.map((business, index) => (
+            <TinderCard
+              ref={childRefs[index]}
+              className='swipe'
+              key={business.id}
+              preventSwipe={['up','down']}
+              onSwipe={(dir) => swiped(dir, business.name, index)}
+              onCardLeftScreen={() => outOfFrame(business.name, index)}
             >
-              <div className='restContent'>
-                <div className='transparentBlock'>
-                  <h3>{business.name}</h3>
-                  <p>Rating: {business.rating}</p>
-                  <p>Price: {business.price}</p>
-                  {/* <p>Address:{business.location.address1} </p> */}
+              <div
+                // style={{ backgroundImage: 'url(' + business.url + ')' }}
+                style={{ backgroundImage: 'url(' + business.imageSrc + ')' }}
+                className='card'
+              >
+                <div className='restContent'>
+                  <div className='transparentBlock'>
+                    <h3>{business.name}</h3>
+                    <p>Rating: {business.rating}</p>
+                    <p>Price: {business.price}</p>
+                    <p>Address:{business.address} </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </TinderCard>
-        ))}
-      </div>
+            </TinderCard>
+          ))}
+        </div>
       <div className='buttons'>
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Not my Flavor!</button>
         {/* <button style={{ backgroundColor: !canGoBack && '#c3c4d3' }} onClick={() => goBack()}>Undo swipe!</button> */}
@@ -163,7 +165,7 @@ function Advanced ({ businesses, swipedRestaurants, setSwipedRestaurants }) {
           Swipe or click and decide together! 
         </h2>
       )}
-      <div className='swiped-restuarants'>
+      {/* <div className='swiped-restuarants'>
         <h2>Swiped Restaurants:</h2>
         <ul>
           {Object.entries(swipedRestaurants).map(([restaurant, count])=>(
@@ -172,10 +174,11 @@ function Advanced ({ businesses, swipedRestaurants, setSwipedRestaurants }) {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
       {/* <Link to='/liked-results' >View Liked Restaurants</Link> */}
+    </div>
     </div>
   )
 }
 
-export default Advanced
+export default Advanced;
