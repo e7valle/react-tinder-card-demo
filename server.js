@@ -25,15 +25,6 @@ const privateRooms = new Map();
 io.on("connection", socket => {
     console.log(`Client ${socket.id} connected`);
 
-    function generatePrivateRoomCode() {
-        const code = Math.random().toString(36).substring(2, 8).toUpperCase(); // Generate a random 6-character code
-        return code;
-    }
-    const newRoomCode = generatePrivateRoomCode();
-    privateRooms.set(newRoomCode, 'RoomName'); 
-
-    console.log(`New private room created: ${newRoomCode}`);
-
     socket.on('join', (payload, callback) => {
         console.log(`Client ${socket.id} joined room ${payload.roomCode}`);
     

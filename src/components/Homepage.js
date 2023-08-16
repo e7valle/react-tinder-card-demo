@@ -1,27 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import randomCodeGenerator from '../util/randomCodeGenerator'
-import io from 'socket.io-client';
+import socket from './socket'
+
 import './Homepage.css';
 
 const Homepage = () => {
     const [roomCode, setRoomCode] = useState('');
-    const [socket, setSocket] = useState(null);
     const [privateRoomCode, setPrivateRoomCode] = useState(null);
-    
-
-    useEffect(() => {
-        //connect to socket if it doesn't exist
-        if (!socket) {
-            const newSocket = io('http://localhost:3001'); 
-            setSocket(newSocket);
-            
-            // Clean up the socket connection on component unmount
-            return () => {
-                newSocket.disconnect();
-            };
-        }
-    }, [socket]); 
+    const navigate = useNavigate();
 
     const handleJoinGame = () => {
         if (socket && roomCode) {
@@ -30,6 +17,7 @@ const Homepage = () => {
                     console.error(error);
                 } else {
                     console.log(`Joining game with code: ${roomCode}`);
+                    navigate(`/play?roomCode=${roomCode}`);
                 }
             });
         }
@@ -46,6 +34,7 @@ const Homepage = () => {
                     console.log(`Creating game with code: ${privateRoomCode}`);
                     setRoomCode(privateRoomCode);
                     console.log("Room code state set:", privateRoomCode);
+                    navigate(`/play?roomCode=${privateRoomCode}`);
                 }
             });
         }
@@ -57,11 +46,11 @@ const Homepage = () => {
                 <div className='homepage-form'>
                     <div className='homepage-join'>
                         <input type='text' placeholder='Game Code' onChange={(event) => setRoomCode(event.target.value)} />
-                        <Link to={`/play?roomCode=${privateRoomCode}`}><button className="btn1" onClick={handleJoinGame}>JOIN SESH</button></Link>
+                        <button className="btn1" onClick={handleJoinGame}>JOIN SESH</button>
                     </div>
                     <h1>OR</h1>
                     <div className='homepage-create'>
-                        <Link to={`/play?roomCode=${privateRoomCode}`}><button className="btn1" onClick={handleCreateGame}>CREATE SESH</button></Link>
+                        <button className="btn1" onClick={handleCreateGame}>CREATE SESH</button>
                     </div>
                 </div>
             </div>
