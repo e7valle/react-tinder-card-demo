@@ -80,6 +80,7 @@ function Advanced ({ businesses  }) {
               ref={childRefs[index]}
               className='swipe'
               key={business.id}
+              preventSwipe={['up', 'down']}
               onSwipe={(dir) => swiped(dir, business.name, index)}
               onCardLeftScreen={() => outOfFrame(business.name, index)}
             >
