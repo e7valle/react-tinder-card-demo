@@ -9,7 +9,15 @@ const PORT = process.env.PORT || 3001
 
 const app = express()
 const server = http.createServer(app)
-const io = socketio(server)
+const io = socketio(server, {
+    autoConnect: false,
+    cors: {
+        origin: "*", 
+        methods: ["GET", "POST"],
+        allowedHeaders: ['Access-Control-Allow-Origin'],
+        credentials: false
+    }
+});
 
 app.use(cors())
 const privateRooms = new Map();
