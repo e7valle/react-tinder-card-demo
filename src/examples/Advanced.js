@@ -93,6 +93,7 @@ function Advanced ({ businesses  }) {
                     <h3>{business.name}</h3>
                     <p>Rating: {business.rating}</p>
                     <p>Price: {business.price}</p>
+                    <p>Address: {business.address}</p>
                     {/* <p>Address:{business.location.address1} </p> */}
                   </div>
                 </div>

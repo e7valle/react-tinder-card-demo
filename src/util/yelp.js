@@ -28,6 +28,7 @@ const Yelp = {
                 rating: business.rating,
                 reviewCount: business.review_count,
                 url: business.url,
+                price: business.price,
             }));
             }
         });
