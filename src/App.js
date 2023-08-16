@@ -8,8 +8,8 @@ import Yelp from "./util/yelp";
 function App() {
   const [businesses, setBusinesses] = useState([]);
 
-  const searchYelp = (term, location, sortBy) => {
-    Yelp.search(term, location, sortBy).then((fetchedBusinesses) => {
+  const searchYelp = (term, location, sortBy, price, radius) => {
+    Yelp.search(term, location, sortBy, price, radius).then((fetchedBusinesses) => {
       setBusinesses(fetchedBusinesses);
     });
   };
