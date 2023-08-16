@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import randomCodeGenerator from '../util/randomCodeGenerator'
 import io from 'socket.io-client';
+import './Homepage.css';
 
 const Homepage = () => {
     const [roomCode, setRoomCode] = useState('');
@@ -51,16 +52,16 @@ const Homepage = () => {
     };
 
     return (
-        <div className='Homepage'>
+        <div className='HomePage'>
             <div className='homepage-menu'>
                 <div className='homepage-form'>
                     <div className='homepage-join'>
                         <input type='text' placeholder='Game Code' onChange={(event) => setRoomCode(event.target.value)} />
-                        <Link to={`/play?roomCode=${privateRoomCode}`}><button className="game-button green" onClick={handleJoinGame}>JOIN GAME</button></Link>
+                        <Link to={`/play?roomCode=${privateRoomCode}`}><button className="btn1" onClick={handleJoinGame}>JOIN SESH</button></Link>
                     </div>
                     <h1>OR</h1>
                     <div className='homepage-create'>
-                        <Link to={`/play?roomCode=${privateRoomCode}`}><button className="game-button orange" onClick={handleCreateGame}>CREATE GAME</button></Link>
+                        <Link to={`/play?roomCode=${privateRoomCode}`}><button className="btn1" onClick={handleCreateGame}>CREATE SESH</button></Link>
                     </div>
                 </div>
             </div>
