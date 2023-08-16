@@ -58,6 +58,10 @@ font-size: .77rem;
 font-weight: 500;
 }
 
+.SearchBar-fields input::placeholder {
+    color:#eed726;
+}
+
 .SearchBar-fields input:last-child {
 margin-right: 0;
 }
