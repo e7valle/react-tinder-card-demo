@@ -35,7 +35,7 @@ function App() {
   return (
     <Router>
       <div>
-        <h1>Tastebuds</h1>
+        {/* <h1>Tastebuds</h1> */}
         <Routes>
           <Route 
             path="/" 

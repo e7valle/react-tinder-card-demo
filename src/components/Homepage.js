@@ -42,13 +42,14 @@ const Homepage = () => {
 
     return (
         <div className='HomePage'>
+            <div className='homepage-background'></div>
             <div className='homepage-menu'>
                 <div className='homepage-form'>
                     <div className='homepage-join'>
                         <input type='text' placeholder='Game Code' onChange={(event) => setRoomCode(event.target.value)} />
                         <button className="btn1" onClick={handleJoinGame}>JOIN SESH</button>
                     </div>
-                    <h1>OR</h1>
+                    <h3>OR</h3>
                     <div className='homepage-create'>
                         <button className="btn1" onClick={handleCreateGame}>CREATE SESH</button>
                     </div>
