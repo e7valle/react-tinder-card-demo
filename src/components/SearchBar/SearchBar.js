@@ -143,11 +143,32 @@ renderRadiusOptions() {
 render() {
 return (
     <div className="SearchBar">
-    <div className="SearchBar-sort-options">
-        <ul>{this.renderSortByOptions()}</ul>
-        <ul>{this.renderPriceOptions()}</ul>
-        <ul>{this.renderRadiusOptions()}</ul>
-    </div>
+                <div className="SearchBar-sort-options">
+                    <div className="dropdown">
+                        <button className="dropdown-toggle" data-toggle="dropdown">
+                            Sort By: {this.state.sortBy}
+                        </button>
+                        <div className="dropdown-menu">
+                            {this.renderSortByOptions()}
+                        </div>
+                    </div>
+                    <div className="dropdown">
+                        <button className="dropdown-toggle" data-toggle="dropdown">
+                            Price: {this.state.price}
+                        </button>
+                        <div className="dropdown-menu">
+                            {this.renderPriceOptions()}
+                        </div>
+                    </div>
+                    <div className="dropdown">
+                        <button className="dropdown-toggle" data-toggle="dropdown">
+                            Radius: {this.state.radius}
+                        </button>
+                        <div className="dropdown-menu">
+                            {this.renderRadiusOptions()}
+                        </div>
+                    </div>
+                </div>
     <div className="SearchBar-fields">
         <input
         placeholder="Cuisine Type"
